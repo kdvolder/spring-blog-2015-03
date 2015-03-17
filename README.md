@@ -63,7 +63,7 @@ If you followed the steps exactly upto this point, your launch probably terminat
 	   
 This may be a bit of a surprise, since we just changed our port didn't we? Actually the port conflict here is not from the http port but a JMX port used to enable "Live Bean Graph Support" (I won't discuss this feature in this Blog post, see [STS 3.6.4 release notes]).
 
-There are a few things we could do to avoid the error. We could open the editor again and change the JMX port as well, or we could disable 'Live Bean Support'. But probably we don't *really* want to run more than one copy of our app in this scenario. So we should just stop the already running instance before launching a new one. As this is such a common thing to do, STS provides a ![Relaunch] Toolbar Button for just this purpose. Click the Button, the running app is stopped and restarted with the changes you just made to the Launch Config now taking effect. If it worked you should now have a `404` error page at http://localhost:8888 instead of 8080. (Note: the Relaunch button won't work if you haven't launched anything yet because it works from your current session's launch history. However if you've launched an app at least once, it is okay to 'Relaunch' an app that is already terminated)
+There are a few things we could do to avoid the error. We could open the editor again and change the JMX port as well, or we could disable 'Live Bean Support'. But probably we don't *really* want to run more than one copy of our app in this scenario. So we should just stop the already running instance before launching a new one. As this is such a common thing to do, STS provides a ![Relaunch] Toolbar Button for just this purpose. Click the Button, the running app is stopped and restarted with the changes you just made to the Launch Config now taking effect. If it worked you should now have a `404` error page at `http://localhost:8888` instead of 8080. (Note: the Relaunch button won't work if you haven't launched anything yet because it works from your current session's launch history. However if you've launched an app at least once, it is okay to 'Relaunch' an app that is already terminated)
 
 ##Editing Configuration Poperties in 'application.properties'
 
@@ -73,22 +73,20 @@ To help you edit such properties files STS 3.6.4 provides a brand new Spring Pro
 
 ![props-editor]
 
-The above screenshot shows a bit of 'messing around' with the content assist and error checking. The only propery shown that's really meaningful for our very simple 'error page App' right now is 'server.port'. Try changing the port in the properties file and it should be picked up automatically when you run the app again. However be mindful that **properties overridden in the Launch Configuration take priority over `application.properties`**. So you'll have to uncheck or delete the `server.port` property in the Launch Configuration to see the effect.
+The above screenshot shows a bit of 'messing around' with the content assist and error checking. The only propery shown that's really meaningful for our very simple 'error page App' right now is `server.port`. Try changing the port in the properties file and it should be picked up automatically when you run the app again. However be mindful that **properties overridden in the Launch Configuration take priority over `application.properties`**. So you'll have to uncheck or delete the `server.port` property in the Launch Configuration to see the effect.
 
 ##Making Our App more Interesting
 
-Let's make our app more interesting. Here's what we'll do. 
+Let's make our app more interesting. Here's what we'll do:
  
 1. Create a 'Hello' rest service that returns a 'greeting' message. 
-2. Make the greeting message configurable via Spring properties
-
-If you define your own properties in the right way then your own user-defined properties get the same 'nice' treatment from the Spring properties editor as the properties defined by Spring Boot itself.
+2. Make the greeting message configurable via Spring properties.
+3. Set up the project so user-defined properties get nice editor support.
 
 ### Create a simple Hello Rest Service
 
-To create the rest servce you can follow [this guide][gs-rest]. For this guide we're doing something even simpler and more direct.
+To create the rest service you can follow [this guide][gs-rest]. For this guide we're doing something even simpler and more direct.
 Create a controller class with this code:
-
 
 ```java
 package demo;
@@ -106,13 +104,15 @@ public class HelloController {
 }
 ```
 
-You might want to this out by [Relaunch]-ing your app. The url http://localhost:${port}/hello?kris should return a text message "Hello Kris". 
+You might want to this out by Relaunching (![Relaunch]) your app. The url `http://localhost:${port}/hello?name=kris` should return a text message "Hello Kris".
 
 ###Making the Greeting Configurable
 
-This is actually quite easy to do, and you might be familiar with Spring's [@Value][ValueAnnotation] annotation. However, using `@Value` you won't get nice content assist. Spring Properties Editor won't be aware of properties you define that way. To understand why its useful to understand a little bit about how the Spring Properties Editor gets its information about the 'known properties'.
+This is actually quite easy to do, and you might be familiar with Spring's [@Value][ValueAnnotation] annotation. However, using `@Value` you won't be able get nice content assist. Spring Properties Editor won't be aware of properties you define that way. To understand why, it is useful to understand a little bit about how the Spring Properties Editor gets its information about the 'known properties'.
 
-Some of the Spring Boot Jars starting from version 1.2.x contain special json metadata files that the editor looks for on your project's classpath and parses. These files contain information about the 'known properties'. If you dig for them a little, you can see find these files from STS. For example, open "spring-boot-autoconfigure-1.2.2.RELEASE.jar" (under "Maven Dependencies") and browse to "META-INF/spring-configuration-metadata.json". You'll find the properties like `server.port` being documented there.
+Some of the Spring Boot Jars starting from version 1.2.x contain special json metadata files that the editor looks for on your project's classpath and parses. These files contain information about the 'known properties'. If you dig for them a little, you can find these files from STS. For example, open "spring-boot-autoconfigure-1.2.2.RELEASE.jar" (under "Maven Dependencies") and browse to "META-INF/spring-configuration-metadata.json". You'll find properties like `server.port` being documented there.
+
+![meta-data]
 
 For our own user-defined properties to be picked-up by the editor we have to create this metadata. Fortunately this can be automated easily provided you define your properties using Spring Boot [@ConfigurationProperties]. So define a class like this:
 
@@ -167,12 +167,27 @@ What's still missing to make the editor aware is the `spring-configuration-metad
 
 Add this to the `pom.xml`:
 
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-configuration-processor</artifactId>
+</dependency>
+```
 
+Then perform a "Maven >> Update Project" to trigger a project configuration update, which should cause the processor to be activated.
+If everything worked correctly. The warning from the editor will now disapear, and you'll also get proper Hove Info:
 
+![hover-info]
 
-##Using Spring Profiles
+Now that the annotation processor has been activated, any future changes to your `HelloProperties` class will trigger an automatic update of the json metadata. You can try it out by adding some extra properties, or renaming your `greeting` property to `message`. Warmings will appear / disapear as appropriate. If you are curious where your metadata file is, you can find it in `target/classes/META-INF`. The file is there, even though Eclipse does its best to hide it from you. It does this with all files in a project's output folder (thank you Eclipse :-). You can get around this by using the `Navigator` view which doesn't filter files as much and show you a more direct view on the actual resources in your workspace. Open this view via "Window >> Show View >> Other >> Navigator" and...
 
-It is often convenient to have more than one configuration for an app. For example a production version using a real database and a development config using a in-memory database. [Profile Specific Properties] are way to manage this.
+![navigator]
+
+Note: We know that the manual step of adding the processor seems like an unnessary complication. We have plans to [automate this further][https://issuetracker.springsource.com/browse/STS-4040] in the future.
+
+## The End
+
+I hope you enjoyed this Tutorial. Comments and questions are welcome.
 
 [menu-new-starter]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/menu-new-spring-starter.png
 [new-starter-wizard]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/new-starter-wizard.png
@@ -186,6 +201,8 @@ It is often convenient to have more than one configuration for an app. For examp
 [override-property]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/override-property.png
 [props-editor]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/props-editor.png
 [unknown-prop]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/unknown-prop.png
+[navigator]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/navigator.png
+[meta-data]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/meta-data.png
 
 
 [Cloud Foundry]:http://cloudfoundry.org
