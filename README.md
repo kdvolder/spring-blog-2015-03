@@ -65,13 +65,114 @@ This may be a bit of a surprise, since we just changed our port didn't we? Actua
 
 There are a few things we could do to avoid the error. We could open the editor again and change the JMX port as well, or we could disable 'Live Bean Support'. But probably we don't *really* want to run more than one copy of our app in this scenario. So we should just stop the already running instance before launching a new one. As this is such a common thing to do, STS provides a ![Relaunch] Toolbar Button for just this purpose. Click the Button, the running app is stopped and restarted with the changes you just made to the Launch Config now taking effect. If it worked you should now have a `404` error page at http://localhost:8888 instead of 8080. (Note: the Relaunch button won't work if you haven't launched anything yet because it works from your current session's launch history. However if you've launched an app at least once, it is okay to 'Relaunch' an app that is already terminated)
 
-##Editing Configuration Poperties and Creating Profiles
+##Editing Configuration Poperties in 'application.properties'
 
-Overriding default property values from the Launch Config editor is convenient for a 'quick change', but it probably isn't a great idea to rely on this to configure many properties and manage complex configurations. For this it is more convenient to manage properties in an 'application.properties' file. Or even several properties file defining different [Spring Profiles]. 
+Overriding default property values from the Launch Config editor is convenient for a 'quick override', but it probably isn't a great idea to rely on this to configure many properties and manage more complex configurations for the longer term. For this it is better to manage properties in an 'application.properties' file which you can commit to your SCM for versioning and safe-keeping. The starter Wizard already created a empty 'application.properties' for us.
 
-To help you edit such properties files STS 3.6.4 provides a brand new Spring Properties Editor. The editor provides nice content assist and error checking. 
+To help you edit such properties files STS 3.6.4 provides a brand new Spring Properties Editor. The editor provides nice content assist and error checking:
 
-This is the end of Part I. Still to come in Part II using the Spring Boot Property editor to edit 'application.properties' files and using @ConfigurationProperties annotations to enable property editor support for your own user-defined Boot-style properties. If you can't wait for Part II you can already read about these features right now in the [STS 3.6.4 release notes].
+![props-editor]
+
+The above screenshot shows a bit of 'messing around' with the content assist and error checking. The only propery shown that's really meaningful for our very simple 'error page App' right now is 'server.port'. Try changing the port in the properties file and it should be picked up automatically when you run the app again. However be mindful that **properties overridden in the Launch Configuration take priority over `application.properties`**. So you'll have to uncheck or delete the `server.port` property in the Launch Configuration to see the effect.
+
+##Making Our App more Interesting
+
+Let's make our app more interesting. Here's what we'll do. 
+ 
+1. Create a 'Hello' rest service that returns a 'greeting' message. 
+2. Make the greeting message configurable via Spring properties
+
+If you define your own properties in the right way then your own user-defined properties get the same 'nice' treatment from the Spring properties editor as the properties defined by Spring Boot itself.
+
+### Create a simple Hello Rest Service
+
+To create the rest servce you can follow [this guide][gs-rest]. For this guide we're doing something even simpler and more direct.
+Create a controller class with this code:
+
+
+```java
+package demo;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+	@RequestMapping("/hello")
+	public String hello(@RequestParam String name) {
+		return "Hello "+name;
+	}
+}
+```
+
+You might want to this out by [Relaunch]-ing your app. The url http://localhost:${port}/hello?kris should return a text message "Hello Kris". 
+
+###Making the Greeting Configurable
+
+This is actually quite easy to do, and you might be familiar with Spring's [@Value][ValueAnnotation] annotation. However, using `@Value` you won't get nice content assist. Spring Properties Editor won't be aware of properties you define that way. To understand why its useful to understand a little bit about how the Spring Properties Editor gets its information about the 'known properties'.
+
+Some of the Spring Boot Jars starting from version 1.2.x contain special json metadata files that the editor looks for on your project's classpath and parses. These files contain information about the 'known properties'. If you dig for them a little, you can see find these files from STS. For example, open "spring-boot-autoconfigure-1.2.2.RELEASE.jar" (under "Maven Dependencies") and browse to "META-INF/spring-configuration-metadata.json". You'll find the properties like `server.port` being documented there.
+
+For our own user-defined properties to be picked-up by the editor we have to create this metadata. Fortunately this can be automated easily provided you define your properties using Spring Boot [@ConfigurationProperties]. So define a class like this:
+
+```java
+package demo;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties("hello")
+public class HelloProperties {
+
+    /**
+     * Greeting message returned by the Hello Rest service.
+     */
+	private String greeting = "Welcome ";
+	public String getGreeting() {
+		return greeting;
+	}
+	public void setGreeting(String greeting) {
+		this.greeting = greeting;
+	}
+}
+```
+
+The `@ConfigurationProperties("hello")` tells Boot to take configuration properties starting with "hello." and try to inject them into the BeanProperties of the `HelloProperties` Bean. The `@Component` annotation marks this class as a Component so that Spring Boot will pick up on it scanning the classpath and turn it into a Bean. Thus, if a configuration file (or another property source) contains a property `hello.greeting` then the value of that property will be injected to `setGreeting`.
+
+Now, to actually use this property all we need is a `HelloProperties` bean. For example to customize the message returned by the rest service, we add a `@Autowired` field to the HelloController and call its `getGreeting` method:
+
+```java
+@RestController
+public class HelloController {
+	
+	@Autowired
+	HelloProperties props;
+	
+	@RequestMapping("/hello")
+	public String hello(@RequestParam String name) {
+		return props.getGreeting()+name;
+	}
+}
+```
+
+Relaunch your app again and try to access http://localhost:${port}/hello?name=yourname. You should get the default "Welcome yourname" message. 
+
+Now go ahead and try editing `application.properties` and change the greeting to something else. We already have everything in place to correctly define the property, but, you'll notice that the editor is still unaware of our newly minted property:
+
+![unknown-prop]
+
+What's still missing to make the editor aware is the `spring-configuration-metadata.json` file documenting our property. This file is created at build-time by the `spring-boot-configuration-processor` which is a Java Annotation Processor. We have to add this processor to our project and make sure it is executed during project builds.
+
+Add this to the `pom.xml`:
+
+
+
+
+##Using Spring Profiles
+
+It is often convenient to have more than one configuration for an app. For example a production version using a real database and a development config using a in-memory database. [Profile Specific Properties] are way to manage this.
 
 [menu-new-starter]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/menu-new-spring-starter.png
 [new-starter-wizard]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/new-starter-wizard.png
@@ -83,10 +184,15 @@ This is the end of Part I. Still to come in Part II using the Spring Boot Proper
 [Relaunch]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/relaunch-button.png
 [run-conf-menu]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/run-conf-menu.png
 [override-property]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/override-property.png
-
+[props-editor]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/props-editor.png
+[unknown-prop]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/unknown-prop.png
 
 
 [Cloud Foundry]:http://cloudfoundry.org
 [convert-jar-to-war]:https://spring.io/guides/gs/convert-jar-to-war/
 [start.spring.io]:http://start.spring.io
 [STS 3.6.4 release notes]:http://docs.spring.io/sts/nan/v364/NewAndNoteworthy.html
+[Spring Profiles]:http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-profile-specific-properties
+[gs-rest]:https://spring.io/guides/gs/rest-service/
+[ValueAnnotation]:http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html
+[@ConfigurationProperties]:http://docs.spring.io/autorepo/docs/spring-boot/1.2.1.RELEASE/api/org/springframework/boot/context/properties/ConfigurationProperties.html
