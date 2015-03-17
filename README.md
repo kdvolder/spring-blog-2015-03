@@ -5,9 +5,11 @@ Spring Tool Suite 3.6.4 was just released last week. This blog post is a tutoria
 In this tutorial you'll learn how to:
 
    - create a Simple Spring Boot Application with STS
+   - launch and debug your boot application from STS
    - use the new STS Properties editor to edit configuration properties.
    - use @ConfigurationProperties in your code to get the same editor support for your own configuration properties.
-   - launch and debug your boot application from STS   
+   
+As this a fair amount of ground to cover, this article will be split into several posts. This post is part 1 and it creating and launching boot apps from STS. 
 
 ## Getting Started: Hello Boot
 
@@ -48,11 +50,20 @@ Now what about the bells and whistles I promised? "Run As >> Boot App" is pretty
 
 ![run-conf-menu]
 
-You'll find the "Launch Configuration" for the app we just launched under the "Spring Boot App". If you've use the Java Launch Config Editor in Eclipse this should look familiar. The 'Main' tab has been replaced with a Spring Boot specific one that has some extra stuff. There are too many things here to discuss them all. See the [STS 3.6.4 release notes] for more info. Let's just do something simple, override the default http port of 8080 to something else. The "Override Properties" section makes this easy. You probably guessed that this can be done by setting a system property. But what, you wonder, is the name of that property exactly "spring.port", "http.port", "spring.server.port"? Fortunately the launch config editor provides some basic content assist. Just type 'port' and it makes a few suggestions:
+If you've use the Java Launch Config Editor in Eclipse befor, this should look familiar. For a Boot Launch Configuration, the 'Main' tab is a little different and has some extra stuff. So let's just do something simple, for example, override the default http port '8080' to something else, like '8888'. You probably guessed that this can be done by setting a system property. In the 'pure' Java launcher you can set properties via commandline arguments. But what, you wonder, is the name of that property exactly "spring.port", "http.port", "spring.server.port"? The launch config editor makes this easy. The "Overrride Properties" component provides some basic content assist. So just type 'port' and it makes a few suggestions:
 
 ![override-property]
 
+Select `server.port` add the value you want in the right column and click "Run". 
 
+If you followed the steps exactly upto this point, your launch probably terminates immediately with an exception:
+
+    Error: Exception thrown by the agent : java.rmi.server.ExportException: Port already in use: 31196; nested exception is: 
+	    java.net.BindException: Address already in use
+	   
+Maybe a bit of a surprise, since we just changed our port didn't we? Actually the port conflict here is not from the http port but a JMX port used to enable "Live Bean Graph Support" (I won't discuss this feature in this Blog post, see [STS 3.6.4 release notes]).
+
+There are a few things we could do to avoid the error. We could open the editor again and change the JMX port as well, or we could disable 'Live Bean Support'. But probably we don't *really* want to run more than one copy of our app in this scenario. So we should just stop the already running instance before launching a new one. As this is such a common thing to do, STS provides a [Relaunch] Toolbar Button for just this purpose. So click the Button now and the running app is stopped and restarted with the changes you just made to the Launch Config now taking effect. If it worked you should now have a `404` error page at http://localhost:8888 instead of 8080. 
 
 [menu-new-starter]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/menu-new-spring-starter.png
 [new-starter-wizard]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/new-starter-wizard.png
