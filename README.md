@@ -44,7 +44,15 @@ Your app should start and you should see some output in the console view:
 
 You can open your app running locally at http://localhost:8080. All you'll get is a `404` error page, but that is exactly as expected since we haven't yet added any real content to our app.
 
-Now what about the bells and whistles I promised? "Run As >> Boot App" is pretty much a plain Java launcher but provides some extra options to customize the launch configurations it creates. To see those options we need to open the "Launch Configuration Editor", accesible from the ![Debug] or ![Run] toolbar buttont
+Now what about the bells and whistles I promised? "Run As >> Boot App" is pretty much a plain Java launcher but provides some extra options to customize the launch configurations it creates. To see those options we need to open the "Launch Configuration Editor", accesible from the ![Debug] or ![Run] toolbar button in the "Run/Debug Configurations..." pull-down menu:
+
+![run-conf-menu]
+
+You'll find the "Launch Configuration" for the app we just launched under the "Spring Boot App". If you've use the Java Launch Config Editor in Eclipse this should look familiar. The 'Main' tab has been replaced with a Spring Boot specific one that has some extra stuff. There are too many things here to discuss them all. See the [STS 3.6.4 release notes] for more info. Let's just do something simple, override the default http port of 8080 to something else. The "Override Properties" section makes this easy. You probably guessed that this can be done by setting a system property. But what, you wonder, is the name of that property exactly "spring.port", "http.port", "spring.server.port"? Fortunately the launch config editor provides some basic content assist. Just type 'port' and it makes a few suggestions:
+
+![override-property]
+
+
 
 [menu-new-starter]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/menu-new-spring-starter.png
 [new-starter-wizard]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/new-starter-wizard.png
@@ -53,7 +61,12 @@ Now what about the bells and whistles I promised? "Run As >> Boot App" is pretty
 [console-output]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/console-output.png
 [Debug]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/debug-button.png
 [Run]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/run-button.png
+[run-conf-menu]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/run-conf-menu.png
+[override-property]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/override-property.png
+
+
 
 [Cloud Foundry]:http://cloudfoundry.org
 [convert-jar-to-war]:https://spring.io/guides/gs/convert-jar-to-war/
 [start.spring.io]:http://start.spring.io
+[STS 3.6.4 release notes]:http://docs.spring.io/sts/nan/v364/NewAndNoteworthy.html
