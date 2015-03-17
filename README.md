@@ -50,7 +50,7 @@ Now, what about the bells and whistles I promised? "Run As >> Boot App" is prett
 
 ![run-conf-menu]
 
-If you've use the Java Launch Config Editor in Eclipse before, this should look familiar. For a Boot Launch Configuration, the 'Main' tab is a little different and has some extra stuff. I won't discuss all of the extras, you can find out more in the [STS 3.6.4 release notes]. So let's just do something simple, for example, override the default http port '8080' to something else, like '8888'. You can probably guess that this can be done by setting a system property. In the 'pure' Java launcher you can set such properties via commandline arguments. But what, you might wonder, is the name of that property exactly "spring.port", "http.port", "spring.server.port"? Fortunately, the launch config editor helps. The "Override Properties" component provides some basic content assist. You just type 'port' and it makes a few suggestions:
+If you've used the Java Launch Config Editor in Eclipse, this should look familiar. For a Boot Launch Configuration, the 'Main' tab is a little different and has some extra stuff. I won't discuss all of the extras, you can find out more in the [STS 3.6.4 release notes]. So let's just do something simple, for example, override the default http port '8080' to something else, like '8888'. You can probably guess that this can be done by setting a system property. In the 'pure' Java launcher you can set such properties via commandline arguments. But what, you might wonder, is the name of that property exactly "spring.port", "http.port", "spring.server.port"? Fortunately, the launch config editor helps. The "Override Properties" component provides some basic content assist. You just type 'port' and it makes a few suggestions:
 
 ![override-property]
 
@@ -65,7 +65,11 @@ This may be a bit of a surprise, since we just changed our port didn't we? Actua
 
 There are a few things we could do to avoid the error. We could open the editor again and change the JMX port as well, or we could disable 'Live Bean Support'. But probably we don't *really* want to run more than one copy of our app in this scenario. So we should just stop the already running instance before launching a new one. As this is such a common thing to do, STS provides a [Relaunch] Toolbar Button for just this purpose. Click the Button, the running app is stopped and restarted with the changes you just made to the Launch Config now taking effect. If it worked you should now have a `404` error page at http://localhost:8888 instead of 8080. (Note: the Relaunch button won't work if you haven't launched anything yet because it works from your current session's launch history. However if you've launched an app at least once, it is okay to 'Relaunch' an app that is already terminated)
 
-#To Be Continued
+##Editing Configuration Poperties and Creating Profiles
+
+Overriding default property values from the Launch Config editor is convenient for a 'quick change', but it probably isn't a great idea to rely on this to configure many properties and manage complex configurations. For this it is more convenient to manage properties in an 'application.properties' file. Or even several properties file defining different [Spring Profiles]. 
+
+To help you edit such properties files STS 3.6.4 provides a brand new Spring Properties Editor. The editor provides nice content assist and error checking. 
 
 This is the end of Part I. Still to come in Part II using the Spring Boot Property editor to edit 'application.properties' files and using @ConfigurationProperties annotations to enable property editor support for your own user-defined Boot-style properties. If you can't wait for Part II you can already read about these features right now in the [STS 3.6.4 release notes].
 
@@ -76,6 +80,7 @@ This is the end of Part I. Still to come in Part II using the Spring Boot Proper
 [console-output]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/console-output.png
 [Debug]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/debug-button.png
 [Run]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/run-button.png
+[Relaunch]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/relaunch-button.png
 [run-conf-menu]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/run-conf-menu.png
 [override-property]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/override-property.png
 
