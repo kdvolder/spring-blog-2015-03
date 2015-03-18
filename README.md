@@ -180,11 +180,11 @@ Now that the annotation processor has been activated, any future changes to your
 
 ![navigator]
 
-Note: We know that the manual step of adding the processor seems like an unnecessary complication. We have plans to [automate this further][https://issuetracker.springsource.com/browse/STS-4040] in the future.
+Note: We know that the manual step of adding the processor seems like an unnecessary complication. We have plans to [automate this further](https://issuetracker.springsource.com/browse/STS-4040) in the future.
 
 ## The End
 
-I hope you enjoyed this Tutorial. Comments and questions are welcome. In a future follow-up blog-post, coming soon, I will show you some more adanced uses of using `@ConfigurationProperties`.
+I hope you enjoyed this Tutorial. Comments and questions are welcome. In another post, coming soon, I will show you more adanced uses of `@ConfigurationProperties` and how the STS properties editor supports that.
 
 ## Links
 
