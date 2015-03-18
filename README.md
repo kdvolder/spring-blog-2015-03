@@ -102,7 +102,7 @@ public class HelloController {
 }
 ```
 
-Try this out by Relaunching (![Relaunch]) your app. The URL `http://localhost:${port}/hello?name=kris` should return a text message "Hello Kris".
+Try this out by Relaunching (![Relaunch]) your app. The URL `http://localhost:8888/hello?name=kris` should return a text message "Hello Kris".
 
 ###Making the Greeting Configurable
 
@@ -137,9 +137,9 @@ public class HelloProperties {
 }
 ```
 
-The `@ConfigurationProperties("hello")` tells Boot to take configuration properties starting with "hello." and try to inject them into the Bean properties of the `HelloProperties` Bean. The `@Component` annotation marks this class as a Component so that Spring Boot will pick up on it scanning the classpath and turn it into a Bean. Thus, if a configuration file (or another property source) contains a property `hello.greeting` then the value of that property will be injected to `setGreeting`.
+The `@ConfigurationProperties("hello")` tells Boot to take configuration properties starting with `hello.` and try inject them into corresponding Bean properties of the `HelloProperties` Bean. The `@Component` annotation marks this class so that Spring Boot will pick up on it scanning the classpath and turn it into a Bean. Thus, if a configuration file (or another property source) contains a property `hello.greeting` then the value of that property will be injected to `setGreeting` of our `HelloProperties` Bean.
 
-Now, to actually use this property all we need is a `HelloProperties` bean. For example to customize the message returned by the rest service, we add a `@Autowired` field to the HelloController and call its `getGreeting` method:
+Now, to actually use this property all we need is a reference to the bean. For example to customize the message returned by the rest service, we can add a `@Autowired` field to the HelloController and call its `getGreeting` method:
 
 ```java
 @RestController
@@ -155,13 +155,13 @@ public class HelloController {
 }
 ```
 
-Relaunch your app again and try to access http://localhost:${port}/hello?name=yourname. You should get the default "Welcome yourname" message. 
+Relaunch your app again and try to access http://localhost:8888/hello?name=yourname. You should get the default "Welcome yourname" message. 
 
-Now go ahead and try editing `application.properties` and change the greeting to something else. We already have everything in place to correctly define the property, but, you'll notice that the editor is still unaware of our newly minted property:
+Now go ahead and try editing `application.properties` and change the greeting to something else. Allthough we already have everything in place to correctly define the property at run-time, you'll notice that the editor is still unaware of our newly minted property:
 
 ![unknown-prop]
 
-What's still missing to make the editor aware is the `spring-configuration-metadata.json` file documenting our property. This file is created at build-time by the `spring-boot-configuration-processor` which is a Java Annotation Processor. We have to add this processor to our project and make sure it is executed during project builds.
+What's still missing to make the editor aware is the `spring-configuration-metadata.json` file. This file is created at build-time by the `spring-boot-configuration-processor` which is a Java Annotation Processor. We have to add this processor to our project and make sure it is executed during project builds.
 
 Add this to the `pom.xml`:
 
@@ -172,8 +172,8 @@ Add this to the `pom.xml`:
 </dependency>
 ```
 
-Then perform a "Maven >> Update Project" to trigger a project configuration update, which should cause the processor to be activated.
-If everything worked correctly. The warning from the editor will now disappear, and you'll also get proper Hove Info:
+Then perform a "Maven >> Update Project" to trigger a project configuration update. This should cause the processor to be activated.
+If everything worked correctly. The warning should disappear from the editor, and you'll also get proper Hover Info:
 
 ![hover-info]
 
