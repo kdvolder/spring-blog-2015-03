@@ -48,11 +48,11 @@ Now, what about the bells and whistles I promised? "Run As >> Boot App" is prett
 
 ![run-conf-menu]
 
-If you've used the Java Launch Config Editor in Eclipse, this should look familiar. For a Boot Launch Configuration, the 'Main' tab is a little different and has some extra stuff. I won't discuss all of the extras, you can find out more in the [STS 3.6.4 release notes]. So let's just do something simple, for example, override the default http port '8080' to something else, like '8888'. You can probably guess that this can be done by setting a system property. In the 'pure' Java launcher you can set such properties via commandline arguments. But what, you might wonder, is the name of that property exactly "spring.port", "http.port", "spring.server.port"? Fortunately, the launch config editor helps. The "Override Properties" component provides some basic content assist. You just type 'port' and it makes a few suggestions:
+If you've used the Java Launch Config Editor in Eclipse, this should look familiar. For a Boot Launch Configuration, the 'Main' tab is a little different and has some extra stuff. I won't discuss all of the extras, you can find out more in the [STS 3.6.4 release notes]. So let's just do something simple, for example, override the default http port `8080` to something else, like `8888`. You can probably guess that this can be done by setting a system property. In the 'pure' Java launcher you can set such properties via commandline arguments. But what, you might wonder, is the name of that property exactly "spring.port", "http.port", "spring.server.port"? Fortunately, the launch config editor helps. The "Override Properties" component provides some basic content assist. You just type 'port' and it makes a few suggestions:
 
 ![override-property]
 
-Select `server.port` add the value '8888' in the right column and click "Run". 
+Select `server.port` add the value `8888` in the right column and click "Run". 
 
 If you followed the steps exactly upto this point, your launch probably terminates immediately with an exception:
 
