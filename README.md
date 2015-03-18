@@ -137,7 +137,7 @@ public class HelloProperties {
 }
 ```
 
-The `@ConfigurationProperties("hello")` tells Boot to take configuration properties starting with `hello.` and try to inject them into corresponding Bean properties of the `HelloProperties` Bean. The `@Component` annotation marks this class so that Spring Boot will pick up on it scanning the classpath and turn it into a Bean. Thus, if a configuration file (or another property source) contains a property `hello.greeting` then the value of that property will be injected to `setGreeting` of our `HelloProperties` Bean.
+The `@ConfigurationProperties("hello")` tells Boot to take configuration properties starting with `hello.` and try to inject them into corresponding Bean properties of the `HelloProperties` Bean. The `@Component` annotation marks this class so that Spring Boot will pick up on it scanning the classpath and turn it into a Bean. Thus, if a configuration file (or another property source) contains a property `hello.greeting` then the value of that property will be injected into `setGreeting` of our `HelloProperties` Bean.
 
 Now, to actually use this property all we need is a reference to the bean. For example to customize the message returned by the rest service, we can add a `@Autowired` field to the HelloController and call its `getGreeting` method:
 
