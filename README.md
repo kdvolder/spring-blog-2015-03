@@ -42,7 +42,7 @@ Your app should start and you should see some output in the console view:
 
 ![console-output]
 
-You can open your app running locally at [http://localhost:8080][http://localhost:8080]. All you'll get is a `404` error page, but that is exactly as expected since we haven't yet added any real content to our app.
+You can open your app running locally at [http://localhost:8080]. All you'll get is a `404` error page, but that is exactly as expected since we haven't yet added any real content to our app.
 
 Now, what about the bells and whistles I promised? "Run As >> Boot App" is pretty much a plain Java launcher but provides some extra options to customize the launch configurations it creates. To see those options we need to open the "Launch Configuration Editor", accesible from the ![Debug] or ![Run] toolbar button:
 
@@ -187,6 +187,17 @@ Note: We know that the manual step of adding the processor seems like an unnessa
 
 I hope you enjoyed this Tutorial. Comments and questions are welcome.
 
+## Links
+
+   - [STS 3.6.4 release notes]
+   - [Spring Boot]: http://projects.spring.io/spring-boot/
+   - [Cloud Foundry]
+   - [Getting Started Guide: Converting Boot project from Jar to War][convert-jar-to-war]
+   - [start.spring.io] A Boot App to Generate 'Getting Started' Boot Apps
+   - [Getting Started Guide: Building A Rest Service][gs-rest]
+   - [@ConfigurationProperties] JavaDoc
+
+[Spring Boot]:
 [menu-new-starter]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/menu-new-spring-starter.png
 [new-starter-wizard]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/new-starter-wizard.png
 [workspace-ready]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/workspace-ready.png
@@ -201,6 +212,7 @@ I hope you enjoyed this Tutorial. Comments and questions are welcome.
 [unknown-prop]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/unknown-prop.png
 [navigator]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/navigator.png
 [meta-data]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/meta-data.png
+[http://localhost:8080]:http://localhost:8080
 
 
 [Cloud Foundry]:http://cloudfoundry.org
