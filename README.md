@@ -40,7 +40,7 @@ Spring boot apps created by the wizard come in two flavors 'jar' or 'war'. The S
  1. you can [convert your 'jar' app to a 'war'][convert-jar-to-war] app at any time 
  2. the [Cloud Foundry] platform directly [supports deploying standalone Java apps][Java Buildpack].
  
-In this article we won't cover how to deploy apps to Cloud Foundry, but in [this article][CFEclipseArticle] you can learm more about using Cloud Foundry Eclipse to do that.
+Note: We won't cover how to deploy apps to Cloud Foundry here, but in [this article][CFEclipseArticle] you can learm more about using [Cloud Foundry Eclipse][CFEclipse] to do that directly from your IDE.
 
 Now, if you understood what I just said, then you probably realize you don't actually need any 'special' tooling from STS to run the app locally. Just click on the Java Main type and select "Run As >> Java Application" and voila. Also all of your standard Eclipse Java debugging tools will 'just work'. However, STS provides a dedicated launcher that does basically the same thing but adds a few useful bells and whistles. So let's use that instead.
 
