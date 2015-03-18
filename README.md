@@ -106,9 +106,9 @@ Try this out by Relaunching (![Relaunch]) your app. The URL `http://localhost:${
 
 ###Making the Greeting Configurable
 
-This is actually quite easy to do, and you might be familiar with Spring's [@Value][ValueAnnotation] annotation. However, using `@Value` you won't be able get nice content assist. Spring Properties Editor won't be aware of properties you define that way. To understand why, it is useful to understand a little bit about how the Spring Properties Editor gets its information about the 'known properties'.
+This is actually quite easy to do, and you might be familiar with Spring's [@Value][ValueAnnotation] annotation. However, using `@Value` you won't be able get nice content assist. Spring Properties Editor won't be aware of properties you define that way. To understand why, it is useful to understand a little bit about how the Spring Properties Editor gets its information about the known properties.
 
-Some of the Spring Boot Jars starting from version 1.2.x contain special JSON meta-data files that the editor looks for on your project's classpath and parses. These files contain information about the 'known properties'. If you dig for them a little, you can find these files from STS. For example, open "spring-boot-autoconfigure-1.2.2.RELEASE.jar" (under "Maven Dependencies") and browse to "META-INF/spring-configuration-metadata.json". You'll find properties like `server.port` being documented there.
+Some of the Spring Boot Jars starting from version 1.2.x contain special JSON meta-data files that the editor looks for on your project's classpath and parses. These files contain information about the known configuration properties. If you dig for a little, you can find these files from STS. For example, open "spring-boot-autoconfigure-1.2.2.RELEASE.jar" (under "Maven Dependencies") and browse to "META-INF/spring-configuration-metadata.json". You'll find properties like `server.port` being documented there.
 
 ![meta-data]
 
