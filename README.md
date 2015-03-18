@@ -65,7 +65,7 @@ There are a few things we could do to avoid the error. We could open the editor 
 
 ##Editing Poperties Files
 
-Overriding default property values from the Launch Config editor is convenient for a 'quick override', but it probably isn't a great idea to rely on this to configure many properties and manage more complex configurations for the longer term. For this it is better to manage properties in a properties file which you can commit to SCM. The starter Wizard already conveniently created a empty `application.properties` for us.
+Overriding default property values from the Launch Config editor is convenient for a 'quick override', but it probably isn't a great idea to rely on this to configure many properties and manage more complex configurations for the longer term. For this it is better to manage properties in a properties file which you can commit to SCM. The starter Wizard already conveniently created an empty `application.properties` for us.
 
 To help you edit `application.properties` STS 3.6.4 provides a brand new Spring Properties Editor. The editor provides nice content assist and error checking:
 
@@ -83,8 +83,8 @@ Let's make our app more interesting. Here's what we'll do:
 
 ### Create a simple Hello Rest Service
 
-To create the rest service you can follow [this guide][gs-rest]. For this guide we're doing something even simpler and more direct.
-Create a controller class with this code:
+To create the rest service you could follow [this guide][gs-rest]. Hover we're doing something even simpler and more direct.
+Go ahead and create a controller class with this code:
 
 ```java
 package demo;
@@ -102,7 +102,7 @@ public class HelloController {
 }
 ```
 
-You might want to this out by Relaunching (![Relaunch]) your app. The url `http://localhost:${port}/hello?name=kris` should return a text message "Hello Kris".
+Tyr this out by Relaunching (![Relaunch]) your app. The url `http://localhost:${port}/hello?name=kris` should return a text message "Hello Kris".
 
 ###Making the Greeting Configurable
 
