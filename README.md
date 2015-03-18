@@ -188,15 +188,17 @@ I hope you enjoyed this Tutorial. Comments and questions are welcome. In a futur
 
 ## Links
 
+   - [Spring Tool Suite]
+   - [Spring Boot]
    - [STS 3.6.4 release notes]
-   - [Spring Boot]: http://projects.spring.io/spring-boot/
    - [Cloud Foundry]
    - [Getting Started Guide: Converting Boot project from Jar to War][convert-jar-to-war]
    - [start.spring.io] A Boot App to Generate 'Getting Started' Boot Apps
    - [Getting Started Guide: Building A Rest Service][gs-rest]
    - [@ConfigurationProperties] JavaDoc
 
-[Spring Boot]:
+[Spring Tool Suite]:https://spring.io/tools
+[Spring Boot]:http://projects.spring.io/spring-boot/
 [menu-new-starter]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/menu-new-spring-starter.png
 [new-starter-wizard]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/new-starter-wizard.png
 [workspace-ready]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/workspace-ready.png
@@ -211,6 +213,7 @@ I hope you enjoyed this Tutorial. Comments and questions are welcome. In a futur
 [unknown-prop]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/unknown-prop.png
 [navigator]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/navigator.png
 [meta-data]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/meta-data.png
+[hover-info]:https://raw.githubusercontent.com/kdvolder/spring-blog-2015-03/master/img/hover-info.png
 [http://localhost:8080]:http://localhost:8080
 
 
