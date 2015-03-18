@@ -65,9 +65,9 @@ There are a few things we could do to avoid the error. We could open the editor 
 
 ##Editing Poperties Files
 
-Overriding default property values from the Launch Config editor is convenient for a 'quick override', but it probably isn't a great idea to rely on this to configure many properties and manage more complex configurations for the longer term. For this it is better to manage properties in a properties file which you can commit to SCM. The starter Wizard already created a empty 'application.properties' for us.
+Overriding default property values from the Launch Config editor is convenient for a 'quick override', but it probably isn't a great idea to rely on this to configure many properties and manage more complex configurations for the longer term. For this it is better to manage properties in a properties file which you can commit to SCM. The starter Wizard already conveniently created a empty `application.properties` for us.
 
-To help you edit such properties files STS 3.6.4 provides a brand new Spring Properties Editor. The editor provides nice content assist and error checking:
+To help you edit `application.properties` STS 3.6.4 provides a brand new Spring Properties Editor. The editor provides nice content assist and error checking:
 
 ![props-editor]
 
