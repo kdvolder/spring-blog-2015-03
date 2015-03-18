@@ -81,7 +81,7 @@ To help you edit `application.properties` STS 3.6.4 provides a brand new Spring 
 
 The above screen shot shows a bit of 'messing around' with the content assist and error checking. The only property shown that's really meaningful for our very simple 'error page App' right now is `server.port`. Try changing the port in the properties file and it should be picked up automatically when you run the app again. However be mindful that **properties overridden in the Launch Configuration take priority over `application.properties`**. So you'll have to uncheck or delete the `server.port` property in the Launch Configuration to see the effect.
 
-##Making Our App more Interesting
+##Making Our App More Interesting
 
 Let's make our app more interesting. Here's what we'll do:
  
@@ -89,7 +89,7 @@ Let's make our app more interesting. Here's what we'll do:
 2. Make the greeting message configurable via Spring properties.
 3. Set up the project so user-defined properties get nice editor support.
 
-### Create a simple Hello Rest Service
+### Create a Simple Hello Rest Service
 
 To create the rest service you could follow [this guide][gs-rest]. Hover we're doing something even simpler and more direct.
 Go ahead and create a controller class with this code:
