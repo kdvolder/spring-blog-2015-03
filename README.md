@@ -9,15 +9,13 @@ In this tutorial you'll learn how to:
    - use the new STS Properties editor to edit configuration properties.
    - use @ConfigurationProperties in your code to get the same editor support for your own configuration properties.
    
-As this a fair amount of ground to cover, this article will be split into several posts. This post is part I and it deals with the first two points only. 
-
 ## Creating a Boot App
 
 We use the "New Spring Starter" wizard to create a basic spring boot app. 
 
 ![menu-new-starter]
 
-Spring boot provides so called 'starters'. A set of classpath dependencies and autoconfiguration that lets you get started without lots of spring configuration. We pick the 'web' starter as we'll build a simple 'Hello' rest service.
+Spring boot provides so called 'starters'. A starter is set of classpath dependencies, which, together with Spring Boot autoconfiguration and lets you get started with an app without needing to do lots of spring configuration. We pick the 'web' starter as we'll build a simple 'Hello' rest service.
 
 ![new-starter-wizard]
 
