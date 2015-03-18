@@ -155,7 +155,7 @@ public class HelloController {
 }
 ```
 
-Relaunch your app again and try to access http://localhost:8888/hello?name=yourname. You should get the default "Welcome yourname" message. 
+Relaunch your app again and try to access `http://localhost:8888/hello?name=yourname`. You should get the default "Welcome yourname" message. 
 
 Now go ahead and try editing `application.properties` and change the greeting to something else. Allthough we already have everything in place to correctly define the property at run-time, you'll notice that the editor is still unaware of our newly minted property:
 
@@ -172,8 +172,7 @@ Add this to the `pom.xml`:
 </dependency>
 ```
 
-Then perform a "Maven >> Update Project" to trigger a project configuration update. This should cause the processor to be activated.
-If everything worked correctly, the warning should disappear from the editor. You'll also get proper Hover Info:
+Then perform a "Maven >> Update Project" to trigger a project configuration update. A Maven project configurator provided by STS will configure JDT APT and activate the processor for Eclipse builds. The warning will immediately disappear from the editor. You'll also get proper Hover Info:
 
 ![hover-info]
 
