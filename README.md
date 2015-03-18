@@ -173,11 +173,11 @@ Add this to the `pom.xml`:
 ```
 
 Then perform a "Maven >> Update Project" to trigger a project configuration update. This should cause the processor to be activated.
-If everything worked correctly. The warning should disappear from the editor, and you'll also get proper Hover Info:
+If everything worked correctly, the warning should disappear from the editor. You'll also get proper Hover Info:
 
 ![hover-info]
 
-Now that the annotation processor has been activated, any future changes to your `HelloProperties` class will trigger an automatic update of the json metadata. You can try it out by adding some extra properties, or renaming your `greeting` property to `message`. Warnings will appear / disappear as appropriate. If you are curious where your metadata file is, you can find it in `target/classes/META-INF`. The file is there, even though Eclipse does its best to hide it from you. It does this with all files in a project's output folder (thank you Eclipse :-). You can get around this by using the `Navigator` view which doesn't filter files as much and show you a more direct view on the actual resources in your workspace. Open this view via "Window >> Show View >> Other >> Navigator" and...
+Now that the annotation processor has been activated, any future changes to your `HelloProperties` class will trigger an automatic update of the json metadata. You can try it out by adding some extra properties, or renaming your `greeting` property to something else. Warnings will appear / disappear as appropriate. If you are curious where your metadata file is, you can find it in `target/classes/META-INF`. The file is there, even though Eclipse does its best to hide it from you. It does this with all files in a project's output folder. You can get around this though by using the `Navigator` view which doesn't filter files as much and shows you a more direct view on the actual resources in your workspace. Open this view via "Window >> Show View >> Other >> Navigator":
 
 ![navigator]
 
@@ -185,7 +185,7 @@ Note: We know that the manual step of adding the processor seems like an unneces
 
 ## The End
 
-I hope you enjoyed this Tutorial. Comments and questions are welcome.
+I hope you enjoyed this Tutorial. Comments and questions are welcome. In a future follow-up blog-post, coming soon, I will show you some more adanced uses of using `@ConfigurationProperties`.
 
 ## Links
 
