@@ -176,7 +176,7 @@ Then perform a "Maven >> Update Project" to trigger a project configuration upda
 
 ![hover-info]
 
-Now that the annotation processor has been activated, any future changes to your `HelloProperties` class will trigger an automatic update of the json metadata. You can try it out by adding some extra properties, or renaming your `greeting` property to something else. Warnings will appear / disappear as appropriate. If you are curious where your metadata file is, you can find it in `target/classes/META-INF`. The file is there, even though Eclipse does its best to hide it from you. It does this with all files in a project's output folder. You can get around this though by using the `Navigator` view which doesn't filter files as much and shows you a more direct view on the actual resources in your workspace. Open this view via "Window >> Show View >> Other >> Navigator":
+Now that the annotation processor has been activated, any future changes to your `HelloProperties` class will trigger an automatic update of the json metadata. You can try it out by adding some extra properties, or renaming your `greeting` property to something else. Warnings will appear / disappear as appropriate. If you are curious where your metadata file is, you can find it in `target/classes/META-INF`. The file is there, even though Eclipse does its best to hide it from you. Eclipse does this with all files in a project's output folder. You can get around this though by using the `Navigator` view which doesn't filter files as much and shows you a more direct view on the actual resources in your workspace. Open this view via "Window >> Show View >> Other >> Navigator":
 
 ![navigator]
 
