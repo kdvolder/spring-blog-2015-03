@@ -11,7 +11,7 @@ In this tutorial you'll learn how to:
    
 As this a fair amount of ground to cover, this article will be split into several posts. This post is part I and it deals with the first two points only. 
 
-## Getting Started: Hello Boot
+## Creating a Boot App
 
 We use the "New Spring Starter" wizard to create a basic spring boot app. 
 
