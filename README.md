@@ -42,7 +42,7 @@ Your app should start and you should see some output in the console view:
 
 ![console-output]
 
-You can open your app running locally at http://localhost:8080. All you'll get is a `404` error page, but that is exactly as expected since we haven't yet added any real content to our app.
+You can open your app running locally at [http://localhost:8080]. All you'll get is a `404` error page, but that is exactly as expected since we haven't yet added any real content to our app.
 
 Now, what about the bells and whistles I promised? "Run As >> Boot App" is pretty much a plain Java launcher but provides some extra options to customize the launch configurations it creates. To see those options we need to open the "Launch Configuration Editor", accesible from the ![Debug] or ![Run] toolbar button:
 
