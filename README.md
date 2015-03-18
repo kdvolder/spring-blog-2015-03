@@ -91,7 +91,8 @@ Let's make our app more interesting. Here's what we'll do:
 
 ### Create a Simple Hello Rest Service
 
-To create the rest service you could follow [this guide][gs-rest]. Hover we're doing something even simpler and more direct.
+To create the rest service you could follow [this guide][gs-rest]. Hover we're doing something even simpler and more direct. 
+
 Go ahead and create a controller class with this code:
 
 ```java
@@ -110,7 +111,7 @@ public class HelloController {
 }
 ```
 
-Try this out by Relaunching (![Relaunch]) your app. The URL `http://localhost:8888/hello?name=kris` should return a text message "Hello Kris".
+Try this out by Relaunching (![Relaunch]) your app. The URL `http://localhost:8888/hello?name=Kris` should return a text message "Hello Kris".
 
 ###Making the Greeting Configurable
 
@@ -147,7 +148,7 @@ public class HelloProperties {
 
 The `@ConfigurationProperties("hello")` tells Boot to take configuration properties starting with `hello.` and try to inject them into corresponding Bean properties of the `HelloProperties` Bean. The `@Component` annotation marks this class so that Spring Boot will pick up on it scanning the classpath and turn it into a Bean. Thus, if a configuration file (or another property source) contains a property `hello.greeting` then the value of that property will be injected into `setGreeting` of our `HelloProperties` Bean.
 
-Now, to actually use this property all we need is a reference to the bean. For example to customize the message returned by the rest service, we can add a `@Autowired` field to the HelloController and call its `getGreeting` method:
+Now, to actually use this property all we need is a reference to the bean. For example to customize the message returned by the rest service, we can add a `@Autowired` field to the `HelloController` and call its `getGreeting` method:
 
 ```java
 @RestController
