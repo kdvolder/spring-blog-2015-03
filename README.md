@@ -133,9 +133,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("hello")
 public class HelloProperties {
 
-    /**
-     * Greeting message returned by the Hello Rest service.
-     */
+	/**
+	 * Greeting message returned by the Hello Rest service.
+	 */
 	private String greeting = "Welcome ";
 	public String getGreeting() {
 		return greeting;
